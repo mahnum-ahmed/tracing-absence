@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tracing Absence</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body>
+
+  <nav class="nav">
+    <span class="nav-logo" onclick="goPage('home')">Tracing Absence</span>
+    <div class="nav-links">
+      <button class="nav-link active" id="nl-home" onclick="goPage('home')">Home</button>
+      <button class="nav-link" id="nl-map" onclick="goPage('map')">Map</button>
+      <button class="nav-link" id="nl-muharram" onclick="goPage('muharram')">Muharram</button>
+      <button class="nav-link" id="nl-about" onclick="goPage('about')">About</button>
+    </div>
+    <button class="lang-btn" onclick="toggleLang(this)">EN / فارسی</button>
+  </nav>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <span class="hero-eyebrow">Quetta, Pakistan</span>
+      <h1 class="hero-title">Tracing Absence</h1>
+      <p class="hero-sub">Imambargahs, ghettoisation, and the spectral presence of the Hazara community</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="goPage('map')">Explore the map</button>
+        <button class="btn-sec" onclick="goPage('about')">About the project</button>
+      </div>
+    </div>
+    <div class="area-grid">
+      <div class="area-card" onclick="openArea('mariabad')">
+        <div class="area-dot" style="background:#1D9E75"></div>
+        <div class="area-name">Mariabad</div>
+        <div class="area-desc">Core Hazara settlement, southeastern Quetta</div>
+      </div>
+      <div class="area-card" onclick="openArea('hazaratown')">
+        <div class="area-dot" style="background:#7F77DD"></div>
+        <div class="area-name">Hazara Town</div>
+        <div class="area-desc">Second major settlement, western Quetta</div>
+      </div>
+      <div class="area-card" onclick="openArea('central')">
+        <div class="area-dot" style="background:#D85A30"></div>
+        <div class="area-name">Central zones</div>
+        <div class="area-desc">Mixed-population urban areas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AREA DETAIL -->
+  <div class="page" id="page-area">
+    <div class="area-page-header">
+      <button class="back-btn" onclick="goPage('home')">
+        <i class="ti ti-arrow-left"></i> All areas
+      </button>
+      <div class="area-title" id="area-title"></div>
+      <div class="area-subtitle" id="area-subtitle"></div>
+    </div>
+    <div class="subtabs">
+      <div class="subtab active" onclick="setSubtab(this,'imambargahs')">Imambargahs</div>
+      <div class="subtab" onclick="setSubtab(this,'coexistence')">Coexistence</div>
+      <div class="subtab" onclick="setSubtab(this,'accessibility')">Accessibility</div>
+      <div class="subtab" onclick="setSubtab(this,'findings')">Key findings</div>
+    </div>
+
+    <!-- IMAMBARGAHS: photo gallery, no clickable list -->
+    <div class="subpage active" id="sub-imambargahs">
+      <div class="photo-gallery" id="photo-gallery"></div>
+      <p class="anon-note" style="padding: 0 20px 20px;">
+        <i class="ti ti-shield"></i>
+        Exact locations are not published. Sites are referenced by number only for community safety.
+      </p>
+    </div>
+
+    <!-- COEXISTENCE -->
+    <div class="subpage" id="sub-coexistence">
+      <div class="placeholder-block">
+        <div class="placeholder-label">Patterns of coexistence</div>
+        How non-Hazara residents interact with or navigate around these sites.
+      </div>
+      <div class="placeholder-block">
+        <div class="placeholder-label">Interview excerpts</div>
+        Third-person narrative or transcripts from locals, shopkeepers, caretakers.
+      </div>
+    </div>
+
+    <!-- ACCESSIBILITY: now includes audio -->
+    <div class="subpage" id="sub-accessibility">
+      <div class="placeholder-block">
+        <div class="placeholder-label">Audio from the sites</div>
+        <div id="audio-embeds">
+          <div class="audio-item">
+            <div class="audio-label">Site 1 — ambient recording</div>
+            <div class="audio-embed-placeholder">[ SoundCloud embed ]</div>
+          </div>
+          <div class="audio-item">
+            <div class="audio-label">Site 2 — ambient recording</div>
+            <div class="audio-embed-placeholder">[ SoundCloud embed ]</div>
+          </div>
+          <div class="audio-item">
+            <div class="audio-label">Site 3 — ambient recording</div>
+            <div class="audio-embed-placeholder">[ SoundCloud embed ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="placeholder-block">
+          <div class="placeholder-label">Ordinary time</div>
+          Access patterns on a regular day
+        </div>
+        <div class="placeholder-block">
+          <div class="placeholder-label">Ritual time</div>
+          How Muharram shifts access
+        </div>
+      </div>
+      <div class="placeholder-block">
+        <div class="placeholder-label">Signage and physical markers</div>
+        What signals presence or restriction at the site boundary.
+      </div>
+    </div>
+
+    <!-- KEY FINDINGS -->
+    <div class="subpage" id="sub-findings">
+      <div class="placeholder-block">
+        <div class="placeholder-label">Thematic summary</div>
+        Key findings for this area — filled in during analysis phase.
+      </div>
+      <div class="placeholder-block">
+        <div class="placeholder-label">Connections to theory</div>
+        How findings relate to Derridean trace, absence, spectrality.
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="page" id="page-map">
+    <div class="map-page">
+      <div id="map-container"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Mariabad</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7F77DD"></div>Hazara Town</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div>Central zones</div>
+      </div>
+      <p class="anon-note">
+        <i class="ti ti-shield"></i>
+        General neighbourhood zones only. Individual imambargah coordinates are not displayed publicly.
+      </p>
+    </div>
+  </div>
+
+  <!-- MUHARRAM -->
+  <div class="page" id="page-muharram">
+    <div class="muharram-page">
+      <p class="intro-text">Muharram is when the sites shift most visibly — accessibility changes, visitor patterns change, and the imambargahs draw people from beyond the immediate neighbourhood.</p>
+      <div class="slide-area">[ photo slideshow — processions, gatherings ]</div>
+      <div class="ctabs">
+        <button class="ctab active" onclick="setCtab(this)">Visitor accounts</button>
+        <button class="ctab" onclick="setCtab(this)">Researcher notes</button>
+        <button class="ctab" onclick="setCtab(this)">Non-Hazara perspectives</button>
+      </div>
+      <div class="placeholder-block">Content goes here based on active tab.</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page" id="page-about">
+    <div class="about-page">
+      <div class="about-section">
+        <div class="about-label">The project</div>
+        <p class="about-text">A ten-week applied ethnographic research project examining how imambargahs in Quetta's mixed-population urban areas materialise the forced absence of the Hazara community. Part of the Summer Tehqiq Research Programme 2026 at Habib University.</p>
+      </div>
+      <div class="about-section">
+        <div class="about-label">A note on location data</div>
+        <p class="about-text">Given the ongoing security situation faced by the Hazara community in Quetta, this project does not publish the specific locations of documented sites. All spatial data is held securely by the research team.</p>
+      </div>
+      <div class="about-section">
+        <div class="about-label">Ethics</div>
+        <p class="about-text">No photographs of individuals without explicit verbal consent. No personally identifiable data collected. Compliant with Habib University research ethics guidelines.</p>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
