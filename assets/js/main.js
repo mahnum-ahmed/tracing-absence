@@ -71,26 +71,46 @@ function goPage(id) {
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'))
   const nl = document.getElementById('nl-' + id)
   if (nl) nl.classList.add('active')
-  if (id === 'map') initMap()
+  if (id === 'home') map && map.invalidateSize()
 }
 
 function initMap() {
   if (map) return
-  map = L.map('map-container').setView([30.185, 67.007], 12)
+  const container = document.getElementById('map-container')
+  const wrap = container.closest('.home-map-wrap')
+  container.style.height = (wrap ? wrap.offsetHeight : 500) + 'px'
+  // Centre between the two settlements; zoom 13 fits both comfortably
+  map = L.map('map-container', { zoomControl: false }).setView([30.180, 66.993], 12)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map)
+  L.control.zoom({ position: 'bottomright' }).addTo(map)
+
   const zones = [
-    { name: 'Mariabad', coords: [30.162, 67.032], color: '#1D9E75' },
-    { name: 'Hazara Town', coords: [30.197, 66.971], color: '#7F77DD' },
-    { name: 'Central zones', coords: [30.195, 67.015], color: '#D85A30' }
+    // Mariabad: southeastern enclave, between Brewery Rd and Airport Rd
+    { id: 'mariabad', name: 'Mariabad', coords: [30.158, 67.028], color: '#1D9E75', sub: 'Southeastern Quetta' },
+    // Hazara Town: western settlement near Mastung Rd
+    { id: 'hazaratown', name: 'Hazara Town', coords: [30.196, 66.958], color: '#7F77DD', sub: 'Western Quetta' },
+    // Central zones: Jinnah Rd / Liaquat Bazaar mixed area
+    { id: 'central', name: 'Central zones', coords: [30.204, 67.008], color: '#D85A30', sub: 'Mixed-population urban areas' }
   ]
+
   zones.forEach(z => {
-    L.circleMarker(z.coords, {
-      radius: 18, color: z.color, fillColor: z.color, fillOpacity: 0.2, weight: 2
-    }).addTo(map).bindPopup(z.name)
+    const icon = L.divIcon({
+      className: '',
+      html: `<div class="map-area-circle" style="background:${z.color}88;border-color:${z.color}">
+               <span class="map-area-label">${z.name}</span>
+             </div>`,
+      iconSize: [120, 120],
+      iconAnchor: [60, 60]
+    })
+    L.marker(z.coords, { icon })
+      .addTo(map)
+      .on('click', () => openArea(z.id))
   })
 }
+
+initMap()
 
 function setSubtab(el, id) {
   document.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'))
