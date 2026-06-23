@@ -19,30 +19,21 @@
 
   <!-- HOME -->
   <div class="page active" id="page-home">
-    <div class="hero">
+    <div class="hero hero-compact">
       <span class="hero-eyebrow">Quetta, Pakistan</span>
       <h1 class="hero-title">Tracing Absence</h1>
       <p class="hero-sub">Imambargahs, ghettoisation, and the spectral presence of the Hazara community</p>
       <div class="hero-cta">
-        <button class="btn-primary" onclick="goPage('map')">Explore the map</button>
         <button class="btn-sec" onclick="goPage('about')">About the project</button>
       </div>
     </div>
-    <div class="area-grid">
-      <div class="area-card" onclick="openArea('mariabad')">
-        <div class="area-dot" style="background:#1D9E75"></div>
-        <div class="area-name">Mariabad</div>
-        <div class="area-desc">Core Hazara settlement, southeastern Quetta</div>
+    <div class="home-map-wrap">
+      <div id="map-container"></div>
+      <div class="float-circle circle-muharram map-float" style="top:12%;right:16%" onclick="goPage('muharram')">
+        <span class="circle-label">Muharram</span>
       </div>
-      <div class="area-card" onclick="openArea('hazaratown')">
-        <div class="area-dot" style="background:#7F77DD"></div>
-        <div class="area-name">Hazara Town</div>
-        <div class="area-desc">Second major settlement, western Quetta</div>
-      </div>
-      <div class="area-card" onclick="openArea('central')">
-        <div class="area-dot" style="background:#D85A30"></div>
-        <div class="area-name">Central zones</div>
-        <div class="area-desc">Mixed-population urban areas</div>
+      <div class="float-circle circle-sound map-float" style="bottom:14%;left:14%" onclick="goPage('sound')">
+        <span class="circle-label">Travel through sound</span>
       </div>
     </div>
   </div>
@@ -131,21 +122,6 @@
       </div>
     </div>
   </div>
-
-<!-- MAP -->
-<div class="page" id="page-map">
-  <div class="map-aesthetic">
-    <div id="map-container"></div>
-    <div class="floating-circles">
-      <div class="float-circle circle-muharram" onclick="goPage('muharram')">
-        <span class="circle-label">Muharram</span>
-      </div>
-      <div class="float-circle circle-sound" onclick="goPage('sound')">
-        <span class="circle-label">Travel through sound</span>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- SOUND ARCHIVE -->
 <div class="page" id="page-sound">
