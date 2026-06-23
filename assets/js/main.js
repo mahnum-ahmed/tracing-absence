@@ -1,7 +1,7 @@
 const areas = {
-  mariabad: { name: 'Mariabad', subtitle: 'Southeastern Quetta', color: '#1D9E75', sites: ['Site 1', 'Site 2', 'Site 3'] },
-  hazaratown: { name: 'Hazara Town', subtitle: 'Western Quetta', color: '#7F77DD', sites: ['Site 4', 'Site 5', 'Site 6'] },
-  central: { name: 'Central zones', subtitle: 'Mixed-population urban areas', color: '#D85A30', sites: ['Site 7', 'Site 8', 'Site 9', 'Site 10'] }
+  mariabad: { name: 'Mariabad', subtitle: 'Southeastern Quetta', color: '#B54A2A', sites: ['Site 1', 'Site 2', 'Site 3'] },
+  hazaratown: { name: 'Hazara Town', subtitle: 'Western Quetta', color: '#3A6B8A', sites: ['Site 4', 'Site 5', 'Site 6'] },
+  central: { name: 'Central zones', subtitle: 'Mixed-population urban areas', color: '#8B6914', sites: ['Site 7', 'Site 8', 'Site 9', 'Site 10'] }
 }
 
 let map = null
@@ -81,8 +81,8 @@ function initMap() {
   container.style.height = (wrap ? wrap.offsetHeight : 500) + 'px'
   // Centre between the two settlements; zoom 13 fits both comfortably
   map = L.map('map-container', { zoomControl: false }).setView([30.180, 66.993], 12)
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
+  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenTopoMap contributors'
   }).addTo(map)
   L.control.zoom({ position: 'bottomright' }).addTo(map)
 
