@@ -13,9 +13,6 @@
     <span class="nav-logo" onclick="goPage('home')">Tracing Absence</span>
     <div class="nav-links">
       <button class="nav-link active" id="nl-home" onclick="goPage('home')">Home</button>
-      <button class="nav-link" id="nl-map" onclick="goPage('map')">Map</button>
-      <button class="nav-link" id="nl-muharram" onclick="goPage('muharram')">Muharram</button>
-      <button class="nav-link" id="nl-about" onclick="goPage('about')">About</button>
     </div>
     <button class="lang-btn" onclick="toggleLang(this)">EN / فارسی</button>
   </nav>
@@ -135,21 +132,70 @@
     </div>
   </div>
 
-  <!-- MAP -->
-  <div class="page" id="page-map">
-    <div class="map-page">
-      <div id="map-container"></div>
-      <div class="legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Mariabad</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#7F77DD"></div>Hazara Town</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div>Central zones</div>
+<!-- MAP -->
+<div class="page" id="page-map">
+  <div class="map-aesthetic">
+    <div id="map-container"></div>
+    <div class="floating-circles">
+      <div class="float-circle circle-muharram" onclick="goPage('muharram')">
+        <span class="circle-label">Muharram</span>
       </div>
-      <p class="anon-note">
-        <i class="ti ti-shield"></i>
-        General neighbourhood zones only. Individual imambargah coordinates are not displayed publicly.
-      </p>
+      <div class="float-circle circle-sound" onclick="goPage('sound')">
+        <span class="circle-label">Travel through sound</span>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- SOUND ARCHIVE -->
+<div class="page" id="page-sound">
+  <div class="sound-page">
+    <button class="back-btn" onclick="goPage('map')">
+      <i class="ti ti-arrow-left"></i> Back
+    </button>
+    <h2 class="sound-title">Travel through sound</h2>
+    <p class="sound-intro">Field recordings from the sites — ambient sound, azaan, daily life. Click a recording to go to where it was captured.</p>
+    <div class="recording-list" id="recording-list">
+
+      <div class="recording-row" onclick="goToRecording('mariabad', 0)">
+        <div class="recording-icon"><i class="ti ti-volume"></i></div>
+        <div class="recording-info">
+          <div class="recording-name">Site 1 — ambient recording</div>
+          <div class="recording-meta">Mariabad &nbsp;·&nbsp; General area</div>
+        </div>
+        <i class="ti ti-arrow-right recording-arrow"></i>
+      </div>
+
+      <div class="recording-row" onclick="goToRecording('mariabad', 1)">
+        <div class="recording-icon"><i class="ti ti-volume"></i></div>
+        <div class="recording-info">
+          <div class="recording-name">Site 2 — ambient recording</div>
+          <div class="recording-meta">Mariabad &nbsp;·&nbsp; General area</div>
+        </div>
+        <i class="ti ti-arrow-right recording-arrow"></i>
+      </div>
+
+      <div class="recording-row" onclick="goToRecording('hazaratown', 0)">
+        <div class="recording-icon"><i class="ti ti-volume"></i></div>
+        <div class="recording-info">
+          <div class="recording-name">Site 4 — ambient recording</div>
+          <div class="recording-meta">Hazara Town &nbsp;·&nbsp; General area</div>
+        </div>
+        <i class="ti ti-arrow-right recording-arrow"></i>
+      </div>
+
+      <div class="recording-row" onclick="goToRecording('central', 0)">
+        <div class="recording-icon"><i class="ti ti-volume"></i></div>
+        <div class="recording-info">
+          <div class="recording-name">Site 7 — ambient recording</div>
+          <div class="recording-meta">Central zones &nbsp;·&nbsp; General area</div>
+        </div>
+        <i class="ti ti-arrow-right recording-arrow"></i>
+      </div>
+
+    </div>
+  </div>
+</div>
 
   <!-- MUHARRAM -->
   <div class="page" id="page-muharram">

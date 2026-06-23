@@ -140,3 +140,12 @@ document.addEventListener('mousemove', e => {
 document.addEventListener('mouseup', () => {
   document.querySelectorAll('.gallery-panorama').forEach(el => el.isDragging = false)
 })
+
+function goToRecording(areaId, siteIndex) {
+  openArea(areaId)
+  // switch to accessibility tab where audio lives
+  const tabs = document.querySelectorAll('.subtab')
+  const pages = document.querySelectorAll('.subpage')
+  tabs.forEach((t, i) => t.classList.toggle('active', i === 2))
+  pages.forEach((p, i) => p.classList.toggle('active', i === 2))
+}
