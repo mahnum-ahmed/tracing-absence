@@ -399,7 +399,7 @@ body {
   height: 600px;
 }
 
-.panorama-inner img {
+.panorama-inner > img {
   height: 600px;
   width: auto;
   max-width: none;
@@ -419,25 +419,33 @@ body {
 }
 
 /* HOTSPOT PINS */
+@keyframes pin-float {
+  0%, 100% { transform: translateY(-50%) translateY(0px); }
+  50%       { transform: translateY(-50%) translateY(-5px); }
+}
+
 .hotspot-pin {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.15s;
+  animation: pin-float 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
 }
 
-.hotspot-pin:hover { transform: translateY(-50%) scale(1.15); }
+.hotspot-pin:hover {
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6));
+  animation-play-state: paused;
+}
 
 .hotspot-pin-img {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   display: block;
 }
