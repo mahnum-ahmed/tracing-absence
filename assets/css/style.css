@@ -432,8 +432,8 @@ body {
 
 /* MAP PAGE (standalone map page removed — map now lives on home) */
 .float-circle {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   display: flex;
   align-items: center;
