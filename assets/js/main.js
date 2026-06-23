@@ -1,7 +1,35 @@
 const areas = {
-  mariabad: { name: 'Mariabad', subtitle: 'Southeastern Quetta', color: '#B54A2A', sites: ['Site 1', 'Site 2', 'Site 3'] },
-  hazaratown: { name: 'Hazara Town', subtitle: 'Western Quetta', color: '#3A6B8A', sites: ['Site 4', 'Site 5', 'Site 6'] },
-  central: { name: 'Central zones', subtitle: 'Mixed-population urban areas', color: '#8B6914', sites: ['Site 7', 'Site 8', 'Site 9', 'Site 10'] }
+  mariabad: {
+    name: 'Mariabad', subtitle: 'Southeastern Quetta', color: '#B54A2A',
+    sites: [
+      {
+        id: 'Site 1',
+        hotspots: [
+          { x: 320, content: { type: 'note', text: 'The outer boundary wall — its blank face constitutes the imambargah\'s most public gesture toward the street.' } },
+          { x: 860, content: { type: 'quote', text: '"You only know it\'s there if you\'ve always known it\'s there."', attribution: 'Local shopkeeper, Mariabad' } }
+        ]
+      },
+      { id: 'Site 2', hotspots: [] },
+      { id: 'Site 3', hotspots: [] }
+    ]
+  },
+  hazaratown: {
+    name: 'Hazara Town', subtitle: 'Western Quetta', color: '#3A6B8A',
+    sites: [
+      { id: 'Site 4', hotspots: [] },
+      { id: 'Site 5', hotspots: [] },
+      { id: 'Site 6', hotspots: [] }
+    ]
+  },
+  central: {
+    name: 'Central zones', subtitle: 'Mixed-population urban areas', color: '#8B6914',
+    sites: [
+      { id: 'Site 7', hotspots: [] },
+      { id: 'Site 8', hotspots: [] },
+      { id: 'Site 9', hotspots: [] },
+      { id: 'Site 10', hotspots: [] }
+    ]
+  }
 }
 
 let map = null
@@ -19,36 +47,94 @@ function openArea(id) {
 function renderGallery(a) {
   const gallery = document.getElementById('photo-gallery')
   gallery.innerHTML = ''
-  a.sites.forEach((s, index) => {
+  a.sites.forEach((site, index) => {
+    const s = typeof site === 'string' ? { id: site, hotspots: [] } : site
     const item = document.createElement('div')
     item.className = 'gallery-item'
 
-    const imgSrc = (a.name === 'Mariabad' && index === 0)
-      ? '<img src="assets/img/panoramic-1.jpg" alt="Site 1 panorama, Mariabad"/>'
-      : `<span style="color:#999;font-size:13px">[ Panoramic photo — ${s} ]</span>`
+    const isRealImage = (a.name === 'Mariabad' && index === 0)
+    const imgContent = isRealImage
+      ? `<img src="assets/img/panoramic-1.jpg" alt="${s.id} panorama, ${a.name}"/>`
+      : `<span class="panorama-placeholder">[ Panoramic photo — ${s.id} ]</span>`
+
+    const pinsHtml = (s.hotspots || []).map((h, hi) => `
+      <button class="hotspot-pin" style="left:${h.x}px" data-index="${hi}">
+        <img src="assets/img/hotspot-icon.png" class="hotspot-pin-img" alt=""
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hotspot-pin-fallback"></div>
+      </button>
+    `).join('')
 
     item.innerHTML = `
-      <div class="gallery-panorama">${imgSrc}</div>
-      <div class="gallery-caption">${s} &nbsp;·&nbsp; ${a.name} &nbsp;·&nbsp; General area only</div>
+      <div class="gallery-panorama">
+        <div class="panorama-inner">
+          ${imgContent}
+          ${pinsHtml}
+        </div>
+      </div>
+      <div class="gallery-caption">${s.id} &nbsp;·&nbsp; ${a.name} &nbsp;·&nbsp; General area only</div>
     `
+
+    item.querySelectorAll('.hotspot-pin').forEach(pin => {
+      pin.addEventListener('click', e => {
+        e.stopPropagation()
+        const hi = parseInt(pin.dataset.index)
+        showHotspotPopup(item, s.hotspots[hi])
+      })
+    })
+
+    // close popup when clicking outside it
+    item.querySelector('.gallery-panorama').addEventListener('click', e => {
+      if (!e.target.closest('.hotspot-popup') && !e.target.closest('.hotspot-pin')) {
+        item.querySelector('.hotspot-popup')?.remove()
+      }
+    })
+
     gallery.appendChild(item)
   })
+}
+
+function showHotspotPopup(galleryItem, hotspot) {
+  galleryItem.querySelector('.hotspot-popup')?.remove()
+
+  const popup = document.createElement('div')
+  popup.className = 'hotspot-popup'
+
+  const c = hotspot.content
+  let body = ''
+  if (c.type === 'quote') {
+    body = `<blockquote class="popup-quote">${c.text}</blockquote>
+            ${c.attribution ? `<cite class="popup-cite">${c.attribution}</cite>` : ''}`
+  } else if (c.type === 'image') {
+    body = `<img src="${c.src}" class="popup-img" alt="${c.caption || ''}">
+            ${c.caption ? `<p class="popup-caption">${c.caption}</p>` : ''}`
+  } else {
+    body = `<p class="popup-text">${c.text}</p>`
+  }
+
+  popup.innerHTML = `
+    <button class="popup-close">×</button>
+    <div class="popup-body">${body}</div>
+  `
+  popup.querySelector('.popup-close').addEventListener('click', () => popup.remove())
+  galleryItem.appendChild(popup)
 }
 
 function renderIbList(a) {
   const list = document.getElementById('ib-list')
   list.innerHTML = ''
-  a.sites.forEach(s => {
+  a.sites.forEach(site => {
+    const s = typeof site === 'string' ? { id: site } : site
     const row = document.createElement('div')
     row.className = 'ib-row'
     row.innerHTML = `
       <div>
-        <div class="ib-name">${s}</div>
+        <div class="ib-name">${s.id}</div>
         <div class="ib-note">General area only — exact location withheld</div>
       </div>
       <i class="ti ti-chevron-right" style="color:#ccc"></i>
     `
-    row.onclick = () => openIb(s)
+    row.onclick = () => openIb(s.id)
     list.appendChild(row)
   })
 }
@@ -141,6 +227,7 @@ function toggleLang(btn) {
 }
 
 document.addEventListener('mousedown', e => {
+  if (e.target.closest('.hotspot-pin') || e.target.closest('.hotspot-popup')) return
   const el = e.target.closest('.gallery-panorama')
   if (!el) return
   el.isDragging = true
