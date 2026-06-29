@@ -21,8 +21,18 @@
   <div class="page active" id="page-home">
     <div class="hero hero-compact">
       <span class="hero-eyebrow">Quetta, Pakistan</span>
+      <div class="hero-ornament">
+        <span class="hero-ornament-line"></span>
+        <span class="hero-ornament-center">
+          <span class="hero-ornament-dot"></span>
+          <span class="hero-ornament-diamond"></span>
+          <span class="hero-ornament-dot"></span>
+        </span>
+        <span class="hero-ornament-line"></span>
+      </div>
       <h1 class="hero-title">Tracing Absence</h1>
       <p class="hero-sub">Imambargahs, ghettoisation, and the spectral presence of the Hazara community</p>
+      <span class="hero-sub-rule"></span>
       <div class="hero-cta">
         <button class="btn-sec" onclick="goPage('about')">About the project</button>
       </div>
@@ -81,16 +91,25 @@
         <div class="placeholder-label">Audio from the sites</div>
         <div id="audio-embeds">
           <div class="audio-item">
-            <div class="audio-label">Site 1 — ambient recording</div>
-            <div class="audio-embed-placeholder">[ SoundCloud embed ]</div>
+            <div class="audio-label">Imam Bargah Baab Al-Raza Gligiti (Ladakh) — ambient recording</div>
+            <div class="site-audio-player" data-src="assets/audios/audio-1.mp3">
+              <button class="site-audio-play-btn" aria-label="Play">&#9654;</button>
+              <div class="site-audio-progress-wrap">
+                <div class="site-audio-waveform"></div>
+                <div class="site-audio-track">
+                  <div class="site-audio-fill"></div>
+                </div>
+              </div>
+              <span class="site-audio-time">0:00</span>
+            </div>
           </div>
           <div class="audio-item">
             <div class="audio-label">Site 2 — ambient recording</div>
-            <div class="audio-embed-placeholder">[ SoundCloud embed ]</div>
+            <div class="audio-embed-placeholder">[ Recording coming soon ]</div>
           </div>
           <div class="audio-item">
             <div class="audio-label">Site 3 — ambient recording</div>
-            <div class="audio-embed-placeholder">[ SoundCloud embed ]</div>
+            <div class="audio-embed-placeholder">[ Recording coming soon ]</div>
           </div>
         </div>
       </div>
